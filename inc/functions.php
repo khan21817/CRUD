@@ -2,6 +2,38 @@
 
 define ('DB', '/home/tom/Downloads/CRUD/test/db.txt');
 
+function addStudents($firstname,$lastname,$roll){
+   global $found ;
+   $found = false;
+    $unserializedData = file_get_contents (DB);
+    $students = unserialize ($unserializedData);
+
+    foreach ($students as $student) {
+        if ($student['roll'] == $roll){
+            $found = true;
+            break;
+     
+        }
+    }
+    if (!$found) {
+        $newId = count ($students) + 1;
+
+        $student = array(
+            "id" => $newId,
+            "fname" => $firstname,
+            "lname" => $lastname,
+            "roll" => $roll
+        );
+
+        array_push ($students, $student);
+        $serializedData = serialize ($students);
+        file_put_contents (DB, $serializedData, LOCK_EX);
+        return true;
+    }
+    return false;
+}
+
+
 
 
 function seed(){

@@ -3,9 +3,26 @@ require_once 'inc/functions.php';
 $info = '';
 $task = $_GET['task'] ?? 'report';
 
+
 if ( 'seed' == $task ) {
     seed();
     $info = "Seeding is complete";
+}
+
+if (isset($_POST['submit'])){
+    $fname = filter_input (INPUT_POST, 'fname',FILTER_SANITIZE_STRING);
+    $lname = filter_input (INPUT_POST, 'lname',FILTER_SANITIZE_STRING);
+    $roll = filter_input (INPUT_POST, 'roll',FILTER_SANITIZE_STRING);
+
+    if ($fname!='' && $lname!='' && $roll!=''){
+        $result = addStudents($fname,$lname,$roll);
+        if ($result){
+            header ('location:/index.php?task=report');
+        }else{
+            header ('location:/error.php');
+        }
+
+    }
 }
 ?>
 
@@ -48,14 +65,14 @@ if ( 'seed' == $task ) {
     <?php if ( 'add' == $task ): ?>
         <div class="row">
             <div class="column column-60 column-offset-20">
-                <form action="/index.php?report">
+                <form action="/index.php?report" method="post">
                     <label for="fname">First Name</label>
                     <input type="text" name="fname" id="fname">
                     <label for="lname">Last Name</label>
                     <input type="text" name="lname" id="lname">
-                    <label for="age">Age</label>
-                    <input type="number" name="age" id="age">
-                    <button type="button" class="button-primary">Save</button>
+                    <label for="roll">Roll</label>
+                    <input type="number" name="roll" id="roll">
+                    <button type="submit" class="button-primary" name="submit" >Save</button>
                 </form>
             </div>
         </div>
