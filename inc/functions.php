@@ -2,6 +2,20 @@
 
 define ('DB', '/home/tom/Downloads/CRUD/test/db.txt');
 
+function deleteStudent($id){
+    $unserializedData = file_get_contents (DB);
+    $students = unserialize ($unserializedData);
+
+    foreach ($students as $offset => $student) {
+        if ($student['id'] == $id){
+            unset($students[$offset]);
+        }
+
+    }
+    $serializedData = serialize ($students);
+    file_put_contents (DB, $serializedData, LOCK_EX);
+}
+
 function updateStudent($id,$firstname,$lastname,$roll){
     $found = false;
     $unserializedData = file_get_contents (DB);
@@ -54,7 +68,7 @@ function addStudents($firstname,$lastname,$roll): bool
         }
     }
     if (!$found) {
-        $newId = count ($students) + 1;
+        $newId = max(array_column ($students, 'id')) + 1;
 
         $student = array(
             "id" => $newId,
