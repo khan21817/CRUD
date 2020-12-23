@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7ffbcbd8-7d98-4380-8f39-880e2f6c9597" name="Default Changelist" comment="crud project">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inc/functions.php" beforeDir="false" afterPath="$PROJECT_DIR$/inc/functions.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/db.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/db.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +13,11 @@
     <execution />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="PhpDebugGeneral" listening_started="true" />
@@ -44,6 +46,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="PHP Script.functions.php" />
+        <item itemvalue="PHP Script.functions.php" />
         <item itemvalue="PHP Script.functions.php" />
       </list>
     </recent_temporary>
