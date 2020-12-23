@@ -13,16 +13,31 @@ if (isset($_POST['submit'])){
     $fname = filter_input (INPUT_POST, 'fname',FILTER_SANITIZE_STRING);
     $lname = filter_input (INPUT_POST, 'lname',FILTER_SANITIZE_STRING);
     $roll = filter_input (INPUT_POST, 'roll',FILTER_SANITIZE_STRING);
+    $id = filter_input (INPUT_POST, 'id',FILTER_SANITIZE_STRING);
 
-    if ($fname!='' && $lname!='' && $roll!=''){
-        $result = addStudents($fname,$lname,$roll);
-        if ($result){
-            header ('location:/index.php?task=report');
-        }else{
-            header ('location:/error.php');
+    if ($id){
+        if ($fname!='' && $lname!='' && $roll!=''){
+          $result =   updateStudent($id,$fname,$lname,$roll);
+          if ($result){
+              header ('location:/index.php?task=report');
+          }else{
+              header ('location:/error.php');
+          }
+           
         }
+    }else{
+        if ($fname!='' && $lname!='' && $roll!=''){
+            $result = addStudents($fname,$lname,$roll);
+            if ($result){
+                header ('location:/index.php?task=report');
+            }else{
+                header ('location:/error.php');
+            }
 
+        }
     }
+
+
 }
 ?>
 
@@ -77,6 +92,28 @@ if (isset($_POST['submit'])){
             </div>
         </div>
     <?php endif; ?>
+    <?php if ( 'edit' == $task ):
+
+        $id = filter_input (INPUT_GET, 'id',FILTER_SANITIZE_STRING);
+        $student = getStudent($id);
+        if ($student):
+        ?>
+        <div class="row">
+            <div class="column column-60 column-offset-20">
+                <form action="/index.php?task=edit" method="post">
+                    <input type="hidden" value="<?php echo $id?>" name="id">
+                    <label for="fname">First Name</label>
+                    <input type="text" name="fname" id="fname" value="<?php echo $student['fname'];?>">
+                    <label for="lname">Last Name</label>
+                    <input type="text" name="lname" id="lname" value="<?php echo $student['lname'];?>">
+                    <label for="roll">Roll</label>
+                    <input type="number" name="roll" id="roll" value="<?php echo $student['roll'];?>">
+                    <button type="submit" class="button-primary" name="submit" >update</button>
+                </form>
+            </div>
+        </div>
+    <?php endif;
+    endif; ?>
 </div>
 </body>
 </html>

@@ -2,7 +2,45 @@
 
 define ('DB', '/home/tom/Downloads/CRUD/test/db.txt');
 
-function addStudents($firstname,$lastname,$roll){
+function updateStudent($id,$firstname,$lastname,$roll){
+    $found = false;
+    $unserializedData = file_get_contents (DB);
+    $students = unserialize ($unserializedData);
+    foreach ($students as $student) {
+        if ($student['roll'] == $roll && $student['id'] != $id ){
+            $found = true;
+            break;
+        }
+    }
+    if (!$found){
+        $students[$id - 1]['fname'] = $firstname;
+        $students[$id - 1]['lname'] = $lastname;
+        $students[$id - 1]['roll'] = $roll;
+
+        $serializedData = serialize ($students);
+        file_put_contents (DB, $serializedData, LOCK_EX);
+        return true;
+    }
+    return false;
+}
+
+function getStudent($id)
+{
+    $unserializedData = file_get_contents (DB);
+    $students = unserialize ($unserializedData);
+
+
+    foreach ($students as $student) {
+        if ($student['id'] == $id){
+            return $student;
+        }
+    }
+    return false;
+}
+
+
+function addStudents($firstname,$lastname,$roll): bool
+{
    global $found ;
    $found = false;
     $unserializedData = file_get_contents (DB);
